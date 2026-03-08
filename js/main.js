@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
         faculties: {
             engineering: {
                 name: 'Engineering',
-                departments: ['Civil Engineering', 'Mechanical Engineering', 'Computer Engineering', 'Electrical & Electronics engineering', 'Material & Metallurgical Engineering', 'Mechatronics Engineering']
+                departments: ['Civil Engineering', 'Mechanical Engineering', 'Electrical Engineering', 'Computer Engineering', 'Chemical Engineering']
             },
             agriculture: {
                 name: 'Agriculture',
-                departments: ['Animal Science', 'Agricultural Economics', 'Soil Science', 'Crop Protection']
+                departments: ['Agronomy', 'Animal Science', 'Agricultural Economics', 'Soil Science', 'Crop Protection']
             },
             environmental: {
                 name: 'Environmental',
@@ -18,15 +18,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Local Storage Helper
+    function saveMaterials() {
+        localStorage.setItem('libraryMaterials', JSON.stringify(materials));
+    }
+
+    function loadMaterials() {
+        const stored = localStorage.getItem('libraryMaterials');
+        if (stored) {
+            return JSON.parse(stored);
+        }
+        return [
+            { id: 1, title: 'Advanced Structural Analysis', faculty: 'engineering', dept: 'Civil Engineering', course: 'CVE401', type: 'Book', date: '2023-10-15' },
+            { id: 2, title: 'Thermodynamics Principles', faculty: 'engineering', dept: 'Mechanical Engineering', course: 'MEE202', type: 'Slide', date: '2023-11-02' },
+            { id: 3, title: 'Soil Mechanics Past Questions', faculty: 'agriculture', dept: 'Soil Science', course: 'SOS301', type: 'Past Question', date: '2024-01-12' },
+            { id: 4, title: 'Sustainable Architecture Design', faculty: 'environmental', dept: 'Architecture', course: 'ARC501', type: 'Paper', date: '2023-09-28' },
+            { id: 5, title: 'Microprocessor Systems', faculty: 'engineering', dept: 'Computer Engineering', course: 'CPE405', type: 'Book', date: '2024-02-05' },
+            { id: 6, title: 'Principles of Animal Nutrition', faculty: 'agriculture', dept: 'Animal Science', course: 'ANS204', type: 'Book', date: '2023-08-14' },
+        ];
+    }
+
     // Mock initial materials
-    let materials = [
-        { id: 1, title: 'Advanced Structural Analysis', faculty: 'engineering', dept: 'Civil Engineering', course: 'CVE401', type: 'Book', date: '2023-10-15' },
-        { id: 2, title: 'Thermodynamics Principles', faculty: 'engineering', dept: 'Mechanical Engineering', course: 'MEE202', type: 'Slide', date: '2023-11-02' },
-        { id: 3, title: 'Soil Mechanics Past Questions', faculty: 'agriculture', dept: 'Soil Science', course: 'SOS301', type: 'Past Question', date: '2024-01-12' },
-        { id: 4, title: 'Sustainable Architecture Design', faculty: 'environmental', dept: 'Architecture', course: 'ARC501', type: 'Paper', date: '2023-09-28' },
-        { id: 5, title: 'Microprocessor Systems', faculty: 'engineering', dept: 'Computer Engineering', course: 'CPE405', type: 'Book', date: '2024-02-05' },
-        { id: 6, title: 'Principles of Animal Nutrition', faculty: 'agriculture', dept: 'Animal Science', course: 'ANS204', type: 'Book', date: '2023-08-14' },
-    ];
+    let materials = loadMaterials();
 
     // --- State Management ---
     const state = {
@@ -218,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            if (adminPasswordInput.value === 'bacademic_unitsf') {
+            if (adminPasswordInput.value === 'admin123') {
                 state.isAdminLoggedIn = true;
                 loginError.style.display = 'none';
                 adminPasswordInput.value = '';
@@ -258,6 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.deleteMaterial = function (id) {
         if (confirm('Are you sure you want to delete this material?')) {
             materials = materials.filter(m => m.id !== id);
+            saveMaterials();
             showToast('Material deleted.');
             updateAdminStats();
             renderAdminMaterials();
@@ -298,6 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         materials.unshift(newMaterial); // Add to beginning
+        saveMaterials();
         showToast('Material uploaded successfully!');
 
         // Reset form
