@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            if (adminPasswordInput.value === 'admin123') {
+            if (adminPasswordInput.value === 'BsfAcademic_unit2026') {
                 state.isAdminLoggedIn = true;
                 loginError.style.display = 'none';
                 adminPasswordInput.value = '';
