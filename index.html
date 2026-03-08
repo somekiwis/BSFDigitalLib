@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSFIkole Library</title>
+    <meta name="description"
+        content="Access academic materials, research papers, and course resources for Engineering, Agriculture, and Environmental faculties.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar glass-effect">
+            <div class="nav-container">
+                <a href="#" class="logo" id="nav-home">
+                    <div class="logo-icon">📚</div>
+                    <span class="logo-text">BSFIkole<span class="text-gradient">Library</span></span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#" class="active" id="link-home">Home</a></li>
+                    <li><a href="#" id="link-catalog">Catalog</a></li>
+                    <li><a href="#" id="link-admin" class="btn-primary-outline">Admin Portal</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main id="main-content">
+            <!-- Home Section -->
+            <section id="section-home" class="view-section active">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Empowering Your <br><span class="text-gradient">Academic Journey</span>
+                        </h1>
+                        <p class="hero-subtitle">Access thousands of course materials, research papers, and textbooks
+                            from our Faculties of Engineering, Agriculture, and Environmental Studies.</p>
+                        <div class="hero-actions">
+                            <button class="btn-primary btn-lg" id="btn-explore">Explore Catalog</button>
+                        </div>
+                    </div>
+                    <div class="hero-shapes">
+                        <div class="shape shape-1"></div>
+                        <div class="shape shape-2"></div>
+                    </div>
+                </div>
+
+                <div class="faculties-preview">
+                    <h2 class="section-title">Our Faculties</h2>
+                    <div class="faculties-grid">
+                        <div class="faculty-card hover-lift" data-faculty="engineering">
+                            <div class="card-icon">⚙️</div>
+                            <h3>Engineering</h3>
+                            <p>Civil, Mechanical, Computer, Electrical and Electronics engineering, Material & Metallurgical, Mechatronics resources.</p>
+                        </div>
+                        <div class="faculty-card hover-lift" data-faculty="agriculture">
+                            <div class="card-icon">🌱</div>
+                            <h3>Agriculture</h3>
+                            <p>FST, Soil & Crop science, Animal Science, and Agricultural Economics materials.</p>
+                        </div>
+                        <div class="faculty-card hover-lift" data-faculty="environmental">
+                            <div class="card-icon">🌍</div>
+                            <h3>Environmental</h3>
+                            <p>Architecture, Estate Management, and Urban Planning archives.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Catalog / Search Section -->
+            <section id="section-catalog" class="view-section">
+                <div class="page-header">
+                    <h2>Library <span class="text-gradient">Catalog</span></h2>
+                    <p>Search and filter academic materials by faculty, department, or course.</p>
+                </div>
+
+                <div class="search-container glass-effect">
+                    <form id="search-form" class="search-form">
+                        <div class="form-group row-item">
+                            <input type="text" id="search-query" placeholder="Search for books, papers, materials..."
+                                class="form-input search-input">
+                        </div>
+                        <div class="filter-controls">
+                            <div class="form-group min-w">
+                                <select id="filter-faculty" class="form-select">
+                                    <option value="">All Faculties</option>
+                                    <option value="engineering">Engineering</option>
+                                    <option value="agriculture">Agriculture</option>
+                                    <option value="environmental">Environmental</option>
+                                </select>
+                            </div>
+                            <div class="form-group min-w">
+                                <select id="filter-department" class="form-select" disabled>
+                                    <option value="">Select Department</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-primary search-btn">Search</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="results-container">
+                    <div class="results-header">
+                        <h3 id="results-count">Showing all materials</h3>
+                    </div>
+                    <div class="materials-grid" id="materials-grid">
+                        <!-- Material cards injected via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Login Section -->
+            <section id="section-admin-login" class="view-section">
+                <div class="login-wrapper">
+                    <div class="login-container glass-effect">
+                        <div class="login-icon">🔒</div>
+                        <h2>Admin <span class="text-gradient">Access</span></h2>
+                        <p class="text-secondary mb-4">Enter administrative password to continue.</p>
+                        <form id="login-form">
+                            <div class="form-group mb-4">
+                                <input type="password" id="admin-password" class="form-input"
+                                    placeholder="Enter Password" required>
+                            </div>
+                            <p id="login-error" class="text-danger mt-2"
+                                style="display: none; font-size: 0.85rem; padding-bottom:10px;">Incorrect password.</p>
+                            <button type="submit" class="btn-primary w-full">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Portal Section -->
+            <section id="section-admin" class="view-section">
+                <div class="page-header flex-header">
+                    <div>
+                        <h2>Admin <span class="text-gradient">Portal</span></h2>
+                        <p>Upload new course materials and manage the digital library repository.</p>
+                    </div>
+                    <button id="btn-logout" class="btn-primary-outline btn-sm">Logout</button>
+                </div>
+
+                <div class="admin-grid">
+                    <div class="admin-panel glass-effect hover-lift">
+                        <h3><span class="icon">📤</span> Upload New Material</h3>
+                        <form id="upload-form" class="upload-form">
+                            <div class="form-group">
+                                <label for="upload-title">Material Title <span class="required">*</span></label>
+                                <input type="text" id="upload-title" class="form-input" required
+                                    placeholder="e.g. Advanced Fluid Mechanics 301">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="upload-faculty">Faculty <span class="required">*</span></label>
+                                    <select id="upload-faculty" class="form-select" required>
+                                        <option value="">Select Faculty</option>
+                                        <option value="engineering">Engineering</option>
+                                        <option value="agriculture">Agriculture</option>
+                                        <option value="environmental">Environmental</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="upload-department">Department <span class="required">*</span></label>
+                                    <select id="upload-department" class="form-select" required disabled>
+                                        <option value="">Select Department</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="upload-course">Course Code</label>
+                                    <input type="text" id="upload-course" class="form-input" placeholder="e.g. MEE301">
+                                </div>
+                                <div class="form-group">
+                                    <label for="upload-type">Material Type</label>
+                                    <select id="upload-type" class="form-select">
+                                        <option value="Book">Textbook</option>
+                                        <option value="Paper">Research Paper</option>
+                                        <option value="Slide">Lecture Slide</option>
+                                        <option value="Past Question">Past Question</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group file-upload-group">
+                                <label for="upload-file" class="file-upload-label">
+                                    <div class="upload-icon">📄</div>
+                                    <div class="upload-text">Click to select file or drag and drop</div>
+                                    <div class="upload-hint">PDF, DOCX, PPTX (Max 20MB)</div>
+                                </label>
+                                <input type="file" id="upload-file" class="file-input" required>
+                                <div id="selected-file-name" class="file-name-display"></div>
+                            </div>
+
+                            <button type="submit" class="btn-primary w-full">Upload Material</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-stats glass-effect">
+                        <h3>Platform Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value" id="stat-total">142</div>
+                                <div class="stat-label">Total Materials</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value text-blue">56</div>
+                                <div class="stat-label">Engineering</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value text-green">48</div>
+                                <div class="stat-label">Agriculture</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value text-purple">38</div>
+                                <div class="stat-label">Environmental</div>
+                            </div>
+                        </div>
+
+                        <div class="recent-uploads mt-8">
+                            <h3>Ready for Review</h3>
+                            <p class="text-secondary text-sm">No pending approvals.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Materials Section -->
+                <div class="admin-manage glass-effect mt-8">
+                    <h3><span class="icon">📋</span> Manage Library Materials</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table text-left">
+                            <thead>
+                                <tr>
+                                    <th>Material Title</th>
+                                    <th>Faculty & Dept</th>
+                                    <th>Course</th>
+                                    <th>Type</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-materials-list">
+                                <!-- Populated dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast">
+            <span id="toast-message">Action successful!</span>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
